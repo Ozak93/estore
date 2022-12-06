@@ -1,1 +1,6 @@
 <h1>Admins Dashboard</h1>
+<% if @stores %>
+  <% @stores.each do |store| %>
+    <h1><%= store.name %></h1>
+    <% end %>
+<% end %>
