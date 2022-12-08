@@ -7,6 +7,10 @@ module ActiveRecordExtension
     def top_five
       limit(5)
     end
+
+    def latest
+      order(created_at: :desc)
+    end
   end
 end
 

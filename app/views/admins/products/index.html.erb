@@ -1,0 +1,11 @@
+<div class="container h-100 d-inline-block">
+  <% if @products %>
+  <% @products.each do |product| %>
+    <%= "Product Name: " + product.name.to_s + " Date of creation: " + product.created_at.to_s %>
+      <br/>
+    <% end %>
+    <div class="pagination_nav">
+    <%= paginate @products %>
+    </div>
+  <% end %>
+</div>

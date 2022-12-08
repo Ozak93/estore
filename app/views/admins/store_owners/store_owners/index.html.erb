@@ -1,0 +1,11 @@
+<div class="container h-100 d-inline-block">
+  <% if @owners%>
+    <% @owners.each do |owner| %>
+      <%= "Owner Name: " + owner.email.to_s  %>
+      <br/>
+    <% end %>
+    <div class="pagination_nav">
+      <%= paginate @owners %>
+    </div>
+  <% end %>
+</div>

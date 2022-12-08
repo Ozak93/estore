@@ -22,13 +22,13 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <%= link_to "Store Owners", admins_users_store_owners_path, class: ' dropdown-item mb-1 text-center' %>
+                <%= link_to "Store Owners", store_owners_admins_users_path(1), class: ' dropdown-item mb-1 text-center' %>
               </li>
               <li>
-                <%= link_to "Customers", admins_users_customers_path, class: ' dropdown-item mb-1 text-center' %>
+                <%= link_to "Customers",  customers_admins_users_path(1), class: ' dropdown-item mb-1 text-center' %>
               </li>
               <li>
-                <%= link_to "Show all users", admins_users_path, class: ' dropdown-item mb-1 text-center border-top' %>
+                <%= link_to "Show all users", admins_users_path(1), class: ' dropdown-item mb-1 text-center border-top' %>
               </li>
             </ul>
           </li>
@@ -42,11 +42,11 @@
             <ul class="dropdown-menu">
               <% nav_stores.each do |store| %>
                 <li>
-                  <%= link_to store.name.capitalize, store_path(store), class: ' dropdown-item mb-1' %>
+                  <%= link_to store.name.capitalize, user_store_path(store), class: ' dropdown-item mb-1' %>
                 </li>
               <% end %>
               <li>
-                <%= link_to 'show all stores', stores_path, class: ' dropdown-item border-top text-center' %>
+                <%= link_to 'show all stores', user_stores_path, class: ' dropdown-item border-top text-center' %>
               </li>
             </ul>
           </li>

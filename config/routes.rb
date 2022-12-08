@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # get 'owners/dashboard', to: 'owners/dashboard#index', as: 'owners_dashboard'
 
   # Resources paths for stores, products, and categories.
-  # resources :stores
+  resources :stores
   resources :products
   resources :categories
 
@@ -22,18 +22,32 @@ Rails.application.routes.draw do
   end
   namespace :owners do
     get 'dashboard', as: 'dashboard', to: 'dashboard#index'
+
   end
   # namespace :static_pages do
   #   get 'home/index'
   # end
   namespace :admins do
-    get 'users/index'
-    get 'customers/index'
-    get 'store_owners/index'
+    # namespace :users do
+    #   get 'users/index'
+    #   get 'user/index'
+    # end
+    # get 'users/index'
+    # get 'customers/index'
+    # get 'store_owners/index'
     get 'dashboard', as: 'dashboard', to: "dashboard#index"
-    get 'users/store_owners', as: 'users_store_owners', to: "store_owners#index"
-    get 'users/customers', as: 'users_customers', to: "customers#index"
-    get 'users', as: 'users', to: 'users#index'
+    resources :users do
+      get 'store_owners/page/:page', as: 'store_owners', to: "store_owners/store_owners#index", on: :collection
+      get 'customers/page/:page', as: 'customers', to: "customers/customers#index", on: :collection
+      get '/page/:page', as:'', to: 'users/users#index', on: :collection
+    end
+    # get 'users/store_owners/page/:page', as: 'users_store_owners', to: "store_owners/store_owners#index"
+    # get 'users/customers/page/:page', as: 'users_customers', to: "customers/customers#index"
+    # get 'users', as: 'users', to: 'users/users#index'
     resources :stores
+    resources :products do
+      get 'page/:page', to: 'products#index', on: :collection
+    end
+    resources :categories
   end
 end
