@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_action :category_id, only: [:edit, :show, :destroy]
 
   def index
-    @categories = Category.all
+    @categories = Category.latest.page params[:page]
   end
 
   def new

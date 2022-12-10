@@ -2,14 +2,25 @@ Rails.application.routes.draw do
   # Root path
   root to: "static_pages/home#index"
 
-  # Dashboard path for admins and stores' owners.
-  # get 'admins/dashboard', to: "admins/dashboard#index", as: 'admins_dashboard'
-  # get 'owners/dashboard', to: 'owners/dashboard#index', as: 'owners_dashboard'
-
   # Resources paths for stores, products, and categories.
-  resources :stores
-  resources :products
-  resources :categories
+  resources :stores do
+    get '/page/:page', as: 'stores', to: 'stores#index', on: :collection
+    get '/:id', as: 'store', to: 'stores#show'
+  end
+  resources :products do
+    get '/page/:page', as: 'products', to: 'products#index', on: :collection
+    get '/:id', as: 'product', to:  'products#show'
+    # post '/', as: 'new_product', to: 'products#create'
+  end
+  resources :categories do
+    get '/page/:page', as: 'categories', to: 'categories#index', on: :collection
+    get '/:id', as: 'category', to:  'categories#show'
+  end
+
+  scope :cart do
+    get '/', as: 'cart', to: 'cart#index'
+    post '/', as: 'add_to_cart', to: 'cart#update'
+  end
 
   # Devise generated paths for user controllers.
   devise_for :user, controllers: { sessions: 'users/sessions' }, skip: [:registrations]
@@ -22,32 +33,16 @@ Rails.application.routes.draw do
   end
   namespace :owners do
     get 'dashboard', as: 'dashboard', to: 'dashboard#index'
-
   end
-  # namespace :static_pages do
-  #   get 'home/index'
-  # end
+
+
+  resources :users do
+    get 'store_owners/page/:page', as: 'store_owners', to: 'users/users#index', on: :collection
+    get 'customers/page/:page', as: 'customers', to: "customers/customers#index", on: :collection
+    get '/page/:page', as:'', to: 'users/users#index', on: :collection
+  end
+
   namespace :admins do
-    # namespace :users do
-    #   get 'users/index'
-    #   get 'user/index'
-    # end
-    # get 'users/index'
-    # get 'customers/index'
-    # get 'store_owners/index'
-    get 'dashboard', as: 'dashboard', to: "dashboard#index"
-    resources :users do
-      get 'store_owners/page/:page', as: 'store_owners', to: "store_owners/store_owners#index", on: :collection
-      get 'customers/page/:page', as: 'customers', to: "customers/customers#index", on: :collection
-      get '/page/:page', as:'', to: 'users/users#index', on: :collection
-    end
-    # get 'users/store_owners/page/:page', as: 'users_store_owners', to: "store_owners/store_owners#index"
-    # get 'users/customers/page/:page', as: 'users_customers', to: "customers/customers#index"
-    # get 'users', as: 'users', to: 'users/users#index'
-    resources :stores
-    resources :products do
-      get 'page/:page', to: 'products#index', on: :collection
-    end
-    resources :categories
+    get 'dashboard', as: 'dashboard', to: "admins/dashboard#index"
   end
 end

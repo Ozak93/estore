@@ -12,7 +12,13 @@ module ActiveRecordExtension
       order(created_at: :desc)
     end
   end
-end
+
+
+    def image_as_thumbnail(width, height)
+      image.variant(resize_to_limit: [width, height]).processed if self.image
+    end
+  end
+
 
 # include the extension
 ActiveRecord::Base.send(:include, ActiveRecordExtension)

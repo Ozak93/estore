@@ -1,10 +1,15 @@
 class ProductsController < ApplicationController
-  #before_action :authenticate_admin_or_owner!, only: [:new, :edit, :create, :destroy]
-  before_action :product_params, only: [:create, :edit]
-  before_action :product_id, only: [:edit, :show, :destroy]
+  before_action :authenticate_admin_or_owner!, only: [:new, :edit, :update, :destroy]
+  before_action :product_params, only: [:create, :update]
+  before_action :product_id, only: [:edit, :show, :update, :destroy]
 
   def index
-    @products = Product.all
+    if user_signed_in? and current_user.owner?
+      @products = current_user.latest_products.page params[:page]
+    else
+      @products =
+        Product.filtered_and_paginated params[:page]
+    end
   end
 
   def new
@@ -12,7 +17,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    Product.create!(product_params(:name, :price, :stock_quantity))
+    product = Product.create!(@_params)
+    redirect_to product_path(product)
   end
 
   def show
@@ -21,6 +27,10 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(@id)
+  end
+
+  def update
+    Product.find(@id).update!(@_params)
   end
 
   def destroy
@@ -33,8 +43,12 @@ class ProductsController < ApplicationController
     @id = params[:id]
   end
 
-  def product_params(*fields)
-    params.require(:product).permit(fields)
+  def product_params
+    @_params = params.require(:product).permit(:name, :price, :stock_quantity, :store_id, :image, pictures: [])
+  end
+
+  def authenticate_admin_or_owner!
+    redirect_to products_path unless admin_signed_in? or owner_signed_in?
   end
 
 end

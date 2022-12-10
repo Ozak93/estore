@@ -21,6 +21,10 @@ module Authentication
     user_signed_in? ? current_user.role == 'customer' : false
   end
 
+  def authenticate_admin_or_owner!
+    puts '==========================>', admin_signed_in?, '<=============================='
+    redirect_to root_path unless admin_signed_in? or owner_signed_in?
+  end
   def redirect_to_after_sign_in_path
     path = case current_user&.role
            when 'admin'
