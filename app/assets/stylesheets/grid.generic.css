@@ -212,3 +212,16 @@
         margin-bottom: 30px;
     }
 }
+
+.no-products {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    /*content: 'No products were found!';*/
+    justify-content: center;
+    /*background-color: #2E2F30;*/
+    align-items: center;
+    font-size: 3rem;
+    letter-spacing: -2px;
+    word-spacing: 0.6rem;
+}

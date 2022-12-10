@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
   def index
     if user_signed_in? and current_user.owner?
       @products = current_user.latest_products.page params[:page]
+      p '=================SUUUUUUP====>', @products, '<============================'
     else
       @products =
         Product.filtered_and_paginated params[:page]

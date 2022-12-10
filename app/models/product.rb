@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   has_and_belongs_to_many :categories
   belongs_to :store
+  belongs_to :user, -> { where role: [1, 2] }
   has_many :order_product_records
 
   has_one_attached :image

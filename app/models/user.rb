@@ -2,6 +2,7 @@ class User < ApplicationRecord
   paginates_per 5
   has_many :stores
   has_many :categories
+  has_many :products, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   enum role: [:customer, :owner, :admin]
@@ -9,7 +10,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
 
-  def self.latest_products
+  def latest_products
     self.products.order(created_at: :desc)
   end
 
