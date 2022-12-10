@@ -17,8 +17,9 @@
 .pagination_nav {
     margin-block: 10px;
     width: 100%;
-    position: absolute;
+    /*position: absolute;*/
     bottom: 15px;
+    border: 1px solid lightgray;
 }
 .pagination_nav nav {
     width: 100%;

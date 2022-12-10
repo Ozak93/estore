@@ -1,7 +1,7 @@
 namespace :categories do
   desc "Seeds Categories"
   task seed_categories: :environment do
-    Category.create!([
+    User.admin.first.categories.create!([
                        {
                          name: 0
                        },
@@ -21,7 +21,7 @@ namespace :categories do
                          name: 5
                        }
                      ])
-    p "Created #{Category.count} categories"
+    p "Created #{Category.count} #{'category'.pluralize(Category.count)}"
   end
 
 end

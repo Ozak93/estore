@@ -1,0 +1,2 @@
+module Owners::ProductsHelper
+end
