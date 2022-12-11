@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     get '/new', as: 'create_new_product', to: 'products#create'
     post '/filtered', as: 'filter', to: "products#filter"
     post '/', as: 'new_product', to: 'products#create'
+    get 'page/:page/low_price', as: 'low_price', to: 'products#index_low_price', on: :collection
+    get 'page/:page/medium_price', as: 'medium_price', to: 'products#index_med_price', on: :collection
+    get 'page/:page/high_price', as: 'high_price', to: 'products#index_high_price', on: :collection
     # get '/filtered/page/:page', as: 'filtered', to: 'products#filtered', on: :collection
   end
   resources :categories do
@@ -21,6 +24,10 @@ Rails.application.routes.draw do
   scope :cart do
     get '/', as: 'cart', to: 'cart#show'
     post '/', as: 'add_to_cart', to: 'cart#update'
+    delete '/:id', as: 'item_remove', to: 'cart#destroy'
+    patch '/:id/:method', as: 'edit_quantity', to: 'cart#edit_quantity'
+    put '/', as: 'checkout', to: 'cart#checkout'
+
   end
 
   # Devise generated paths for user controllers.
@@ -40,10 +47,18 @@ Rails.application.routes.draw do
   resources :users do
     get 'store_owners/page/:page', as: 'store_owners', to: 'users/users#index', on: :collection
     get 'customers/page/:page', as: 'customers', to: "customers/customers#index", on: :collection
-    get '/page/:page', as:'', to: 'users/users#index', on: :collection
+    get '/page/:page', as:'users', to: 'users/users#index', on: :collection
+    # get '/create', as: 'new' ,to: 'users/users#new'
   end
 
-  namespace :admins do
+  resources :admins do
     get 'dashboard', as: 'dashboard', to: "admins/dashboard#index"
+
+      get '/users', to: 'admins/userss#index'
+      get '/users/new', to: "admins/userss#new"
+    post '/users', as: 'create_user' ,to: 'admins/userss#create'
+    get '/users/:id', as: 'user_edit', to:'admins/userss#edit'
+    patch '/users/:id', as: 'edit_user' ,to: 'admins/userss#update'
+
   end
 end

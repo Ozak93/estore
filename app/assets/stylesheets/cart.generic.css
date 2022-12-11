@@ -231,12 +231,12 @@ img {
     font-weight: bold;
     font-size: 1.25em;
 }
-.cart .items .cartSection input.qty {
+.cart .items .cartSection .qty {
     width: 2em;
     text-align: center;
-    font-size: 1em;
+    font-size: 1.1em;
     padding: .25em;
-    margin: 1em .5em 0 0;
+    margin: 0;
 }
 .cart .items .cartSection .itemImg {
     width: 8em;
@@ -438,4 +438,31 @@ a.remove:hover {
         width: 100%;
         text-align: center;
     }
+}
+.plus {
+    content: "\00B1";
+    /*width: 15px;*/
+    aspect-ratio: 1;
+    color: black;
+}
+
+.radius {
+    border-radius: 50%;
+    text-decoration: none !important;
+    color: black;
+    text-underline: none;
+
+}
+
+.qty-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    background-color: black;
+}
+.flex-paragraph {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 150px;
 }

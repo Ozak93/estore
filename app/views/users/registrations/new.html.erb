@@ -1,31 +1,44 @@
-<h2>Sign up</h2>
+<% stylesheet_link_tag 'forms.generic' %>
+<div class="pt-5">
+  <h1 class="text-center">Sign up form</h1>
 
-<%= form_with scope: @user, url: user_registration_path do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 mx-auto">
+        <div class="card card-body">
+          <%= form_with scope: @user, url: user_registration_path do |f| %>
+            <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            <div class="form-group required">
+              <%= f.label :email %><br/>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control text-lowercase' %>
+            </div>
+
+            <div class="form-group required">
+              <%= f.label :password, class: 'd-flex flex-row align-items-center' %>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %><br/>
+              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control text-lowercase' %>
+            </div>
+
+            <div class="form-group required">
+              <%= f.label :password_confirmation, class: 'd-flex flex-row align-items-center' %><br/>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control text-lowercase' %>
+            </div>
+
+            <%= f.hidden_field :role, value: @role %>
+
+            <div class="form-group pt-1">
+              <%= f.submit "Sign up", class:"btn btn-primary btn-block w-100" %>
+            </div>
+          <% end %>
+          <p class="small-xl pt-3 text-center">
+            <span class="text-muted">have an account?</span>
+          <%= render "users/shared/links" %></p>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <%= f.hidden_field :role,  value: @role %>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>

@@ -9,32 +9,47 @@ class ProductsController < ApplicationController
   helper_method :customer_signed_in?
 
   def index
+
+    if owner_signed_in?
+      @products = current_user.latest_products.page params[:page]
+      elsif admin_signed_in?
       @products = Product.order(created_at: :desc).page params[:page]
-      @products = current_user.latest_products.page params[:page] if owner_signed_in?
+    elsif params[:scope].nil?
+      @products = Product.order(created_at: :desc).page params[:page]
+    else
+      case params[:scope]
+      when 'low_price'
+         # @products = (session[:low_price_products].map { |id| Product.find(id) }).order(created_at: :desc).page params[:page] if session[:low_price_products]
+         @products = Product.price_less_than(150).order(created_at: :desc).page params[:page]
+      when 'high_price'
+        @products = Product.price_more_than(500).order(created_at: :desc).page params[:page]
+      when 'med_price'
+        @products = Product.price_in_between({lower_val: 150, upper_val: 500}).order(created_at: :desc).page params[:page]
+      when 'search'
+        @products = Product.where("name like ?", "%#{params[:keyword]}%").order(created_at: :desc).page params[:page]
+      end
+      end
   end
 
-  def index_low_price
-    @products = Product.filtered_and_paginated params[:page], 'price', {price_scope: :price_less_than, values:{value: 50}}
-  end
-  def index_med_price
-    @products = Product.filtered_and_paginated params[:page], 'price', {price_scope: :price_in_between, values:{lower_val: 50, upper_val: 250}}
-  end
-  def index_high_price
-    @products = Product.filtered_and_paginated params[:page], 'price', {price_scope: :price_more_than, values:{value: 250}}
-  end
 
   def filter
     case @_filters['name']
     when 'category'
       redirect_to categories_path
     when 'low_price'
-      redirect_to :action => :index_low_price
+      redirect_to products_path(scope: :low_price)
     when 'medium_price'
-      redirect_to :action => :index_med_price
+      redirect_to products_path(scope: :med_price)
     when 'high_price'
-      redirect_to :action => :index_high_price
-      else 'date'
-      redirect_to :action => :index
+      redirect_to products_path(scope: :high_price)
+    when 'all_products'
+      redirect_to products_path
+    else
+      if @_filters['search']
+        redirect_to products_path(scope: :search, keyword: @_filters['search'])
+      else
+      redirect_to products_path
+      end
     end
     # redirect_to :action => :index, filter: @_filters['name']
   end
@@ -84,7 +99,7 @@ class ProductsController < ApplicationController
   end
 
   def filter_params
-    @_filters = params.require(:filters).permit(:name)
+    @_filters = params.require(:filters).permit(:name, :search)
   end
 
   def categories

@@ -3,7 +3,7 @@
     margin-inline-end: 5px;
 }
 
-form {
+.products-filters form {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -11,4 +11,8 @@ form {
     column-gap: 15px;
     align-items: baseline;
     padding-inline-start: 2rem;
+}
+.products-filters .btn-color {
+    background-color: honeydew;
+    color: #2E2F30;
 }

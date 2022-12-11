@@ -1,8 +1,0 @@
-<% if @products %>
-  <div class="container-lg">
-    <% @products.each do |product| %>
-    <%= product.name %>
-      <% end %>
-  <%= paginate @products %>
-  </div>
-<% end %>
