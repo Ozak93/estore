@@ -1,2 +1,6 @@
-<h1>Stores#show</h1>
-<p>Find me in app/views/stores/show.html.erb</p>
+<div class="w-100">
+  <h1 class="ms-5">
+    <%= @store.name %>
+  </h1>
+  <%= render "products/shared/products_view", locals:{products: @products} %>
+</div>

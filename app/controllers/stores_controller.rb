@@ -22,6 +22,7 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(@id)
+    @products = @store.products.order(created_at: :desc).page params[:page]
   end
 
   def update

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_172445) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_11_062032) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -64,6 +64,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_172445) do
     t.index ["product_id", "category_id"], name: "index_categories_products_on_product_id_and_category_id"
   end
 
+  create_table "category_names", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "filters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_product_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.float "price"
     t.integer "quantity"
@@ -90,7 +102,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_172445) do
     t.datetime "updated_at", null: false
     t.bigint "store_id", null: false
     t.string "image"
+    t.bigint "user_id"
     t.index ["store_id"], name: "index_products_on_store_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "stores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

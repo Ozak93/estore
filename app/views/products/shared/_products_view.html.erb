@@ -1,0 +1,81 @@
+<% stylesheet_link_tag 'grid.generic' %>
+<% stylesheet_link_tag 'product.generic' %>
+
+<% if locals[:products] %>
+  <% if customer_signed_in? or !user_signed_in? and @filters %>
+    <div class="products-filters">
+    <%= form_with scope: :filters, url: product_filter_path(1) do |form| %>
+      <div class="mb-3 cats-check-boxes">
+      <%= form.collection_radio_buttons :name, @filters, :name, :name %>
+      </div>
+        <%= form.text_field :search, placeholder: 'search', class: 'px-3 py-2' %>
+      <%= form.submit 'filter', class: 'inline btn btn-primary btn-color' %>
+    <% end %>
+    </div>
+  <% end %>
+  <div class="container-lg">
+    <div class="row">
+      <% if locals[:products].length > 0 %>
+        <% locals[:products].each do |item| %>
+          <div class="col-md-3 col-sm-6 my-5">
+            <div class="product-grid">
+              <div class="product-image">
+                <% if item.image? %>
+                  <%= link_to image_tag(item.image_as_thumbnail(360, 360), style: 'max-height: 360px; width:auto; height: 360px'), product_path(item), class: 'image' %>
+                <% else %>
+                  <%= link_to image_tag('no_image.jpg', style: 'height: 360px') %>
+                <% end %>
+                <!--            <a href="#" class="image">-->
+                <!--              <img class="pic-1" src="images/img-1.jpg">-->
+                <!--              <img class="pic-2" src="images/img-2.jpg">-->
+                <!--            </a>-->
+                <% if item.price > 200 %>
+                  <span class="product-hot-label">best seller</span>
+                <% end %>
+                <ul class="product-links">
+                  <!--                <li><a href="#"><i class="far fa-heart"></i></a></li>-->
+                  <!--                <li><a href="#"><i class="fa fa-search"></i></a></li>-->
+                  <li><% if item.image? %><%= link_to "", item.image, class: 'fa fa-search' %><% end %></li>
+                </ul>
+              </div>
+              <div class="product-content">
+                <ul class="rating">
+                  <% (2..(rand(4..5))).each do |number| %>
+                    <li class="fa fa-star"></li>
+                    <!--                <li class="fa fa-star"></li>-->
+                    <!--                <li class="fa fa-star"></li>-->
+                    <!--                <li class="far fa-star"></li>-->
+                    <!--                <li class="far fa-star"></li>-->
+                  <% end %>
+                  <li>(5)</li>
+                </ul>
+                <h3 class="title text-truncate"><%= link_to item.name, product_path(item) %></h3>
+                <div class="price"><%= item.price %>$<br/><%= item.stock_quantity %> in stock</div>
+
+                <!--              <a href="#" class="add-to-cart">Add to cart</a>-->
+                <%#= link_to 'Add to cart', add_to_cart_path(product: item), data: { 'turbo-method': :post }, :remote => true, class: 'add-to-cart' %>
+                <% if customer_signed_in? or !user_signed_in? %>
+                <div class="add-to-cart-container">
+                  <%= form_with scope: :product, url: add_to_cart_path do |form| %>
+                    <%= form.hidden_field :product_id, value: item.id %>
+                    <%= form.submit 'Add to cart' ,class: 'add-to-cart flex-grow' %>
+                    <%= form.number_field :amount, value: 1, class: 'amount-field' %>
+                  <% end %>
+                </div>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="pagination_nav">
+          <%= paginate locals[:products] %>
+        </div>
+      <% else %>
+        <div class="no-products">
+          No products to view
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

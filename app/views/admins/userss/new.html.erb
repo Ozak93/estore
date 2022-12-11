@@ -1,0 +1,55 @@
+<% stylesheet_link_tag 'product.generic' %>
+<div class="container-lg d-flex flex-row justify-content-center">
+
+  <%= form_with scope: :user, url: admin_create_user_path do |form| %>
+    <h1 class="mb-4">User creation</h1>
+    <% if @user.errors.any? %>
+      <div style="color: red">
+        <h2>
+          <%= pluralize(@user.errors.count, 'error') %> prohibited this product from being saved:
+        </h2>
+        <ul>
+          <% @user.errors.each do |error| %>
+            <li>
+              <%= error.full_message %>
+            </li>
+            </ul>
+            </div>
+          <% end %>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.hidden_field :ide, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :email,  style: 'display: block' %>
+      <%= form.text_field :email, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :name, 'user name', style: 'display: block' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :password, 'Password', style: 'display: block' %>
+      <%= form.password_field :password, class: 'form-control' %>
+    </div>
+
+
+    <div class="mt-4">
+      <%= form.label :role, 'User role', style: 'display: block' %>
+      <%= form.select(:role, @roles) %>
+    </div>
+
+
+    <div class="form-group mt-4">
+      <%= form.label :image, 'User image', style: 'display: block' %>
+      <%= form.file_field :image, class: "form-control-file" %>
+    </div>
+
+
+    <div>
+      <%= form.submit class: 'btn btn-primary mt-5 w-50 position-relative top-100 start-50 translate-middle' %>
+    </div>
+  <% end %>
+</div>

@@ -1,2 +1,8 @@
-<h1>Stores#index</h1>
-<p>Find me in app/views/stores/index.html.erb</p>
+<% if @stores %>
+  <div class="container-lg text-center text-decoration-none d-flex flex-row justify-content-center gap-4 flex-sm-wrap w-100">
+    <% @stores.each do |store| %>
+
+      <%= link_to store.name, store_path(id: store.id, page:1), class: 'card text-decoration-none bg-dark text-light w-25  d-flex flex-row justify-content-center align-items-center', style:"height:10rem" %>
+    <% end %>
+  </div>
+<% end %>

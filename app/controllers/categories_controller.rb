@@ -17,6 +17,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(@id)
+    @products = @category.products.order(created_at: :desc).page params[:page]
   end
 
   def edit

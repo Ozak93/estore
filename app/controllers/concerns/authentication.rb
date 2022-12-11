@@ -28,7 +28,7 @@ module Authentication
   def redirect_to_after_sign_in_path
     path = case current_user&.role
            when 'admin'
-             admins_dashboard_path
+             admin_dashboard_path(1)
            when 'owner'
              owners_dashboard_path
            else
@@ -40,7 +40,7 @@ module Authentication
   def user_home_path
     case current_user&.role
     when 'admin'
-      admins_dashboard_path
+      admin_dashboard_path(1)
     when 'owner'
       owners_dashboard_path
     else

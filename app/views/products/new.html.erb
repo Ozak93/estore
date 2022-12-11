@@ -1,45 +1,70 @@
-<%= form_with(model: @product) do |form| %>
-  <% if @product.errors.any? %>
-    <div style="color: red">
-      <h2>
-        <%= pluralize(@product.errors.count, 'error') %> prohibited this product from being saved:
-      </h2>
-      <ul>
-        <% @product.errors.each do |error| %>
-          <li>
-            <%= error.full_message %>
-          </li>
-          </ul>
-          </div>
-        <% end %>
+<% stylesheet_link_tag 'product.generic' %>
+<div class="container-lg d-flex flex-row justify-content-center">
+
+  <%= form_with(model: @product) do |form| %>
+    <h1 class="mb-4">Product creation</h1>
+    <% if @product.errors.any? %>
+      <div style="color: red">
+        <h2>
+          <%= pluralize(@product.errors.count, 'error') %> prohibited this product from being saved:
+        </h2>
+        <ul>
+          <% @product.errors.each do |error| %>
+            <li>
+              <%= error.full_message %>
+            </li>
+            </ul>
+            </div>
+          <% end %>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :name, 'Product name', style: 'display: block' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :price, 'Product price', style: 'display: block' %>
+      <%= form.number_field :price, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :stock_quantity, style: 'display: block' %>
+      <%= form.number_field :stock_quantity, class: 'form-control' %>
+    </div>
+
+    <!--    <div class="mb-3">-->
+    <%# if @categories %>
+    <%# @categories.each do |category| %>
+    <!--          <div class="d-inline me-2">-->
+    <%#= form.label category.name.to_sym %>
+    <%#= form.check_box category.name.to_sym %>
+    <!--          </div>-->
+    <%# end %>
+    <%# end %>
+    <!--    </div>-->
+    <!--    <div class="mb-3">-->
+    <%#= form.collection_radio_buttons :categories, Category.order(:name), :id, :name, multiple: true %>
+    <!--    </div>-->
+    <div class="mb-3 cats-check-boxes">
+      <%= form.collection_check_boxes :categories, @categories, :id, :name %>
+    </div>
+
+
+    <div class="mt-4">
+      <%= form.label :store_id, 'Viewing store', style: 'display: block' %>
+      <%= form.collection_select :store_id, Store.order(created_at: :desc), :id, :name %>
+    </div>
+
+
+    <div class="form-group mt-4">
+      <%= form.label :image, 'Product image', style: 'display: block' %>
+      <%= form.file_field :image, class: "form-control-file" %>
+    </div>
+
+
+    <div>
+      <%= form.submit class: 'btn btn-primary mt-5 w-50 position-relative top-100 start-50 translate-middle' %>
+    </div>
   <% end %>
-
-<div>
-  <%= form.label :name, style: 'display: block' %>
-  <%= form.text_field :name %>
 </div>
-
-<div>
-  <%= form.label :price, style: 'display: block' %>
-  <%= form.number_field :price %>
-</div>
-
-<div>
-  <%= form.label :stock_quantity, style: 'display: block' %>
-  <%= form.number_field :stock_quantity %>
-</div>
-
-<div>
-  <%= form.label :image, style: 'display: block' %>
-  <%= form.file_field :image %>
-</div>
-
-  <div>
-    <%= form.label :store_id %>
-    <%= form.collection_select :store_id, Store.order(created_at: :desc), :id, :name %>
-  </div>
-
-  <div>
-    <%= form.submit class:'btn' %>
-  </div>
-<% end %>
