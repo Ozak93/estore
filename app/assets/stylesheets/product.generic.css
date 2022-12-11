@@ -1,0 +1,14 @@
+.cats-check-boxes input {
+    margin-inline-start: 17px;
+    margin-inline-end: 5px;
+}
+
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    float-wrap: none;
+    column-gap: 15px;
+    align-items: baseline;
+    padding-inline-start: 2rem;
+}

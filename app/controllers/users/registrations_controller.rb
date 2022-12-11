@@ -16,7 +16,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user = User.create!(email: @_params['email'], password: @_params['password'], role: role)
     sign_in(user)
     # redirect_to user_session_path, data: { "turbo-method": :post, user: {email: @_params['email'], password: @_params['password'], remember_me: '1'} }
-    redirect_to_after_sign_in_path
+    if role == 0
+      redirect_to :back
+    else
+      redirect_to_after_sign_in_path
+    end
   end
 
   # GET /resource/edit

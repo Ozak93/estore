@@ -1,2 +1,6 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<div class="w-100">
+  <h1 class="ms-5">
+    <%= @category.name.to_s.gsub("_", " ").capitalize %> category's products
+  </h1>
+  <%= render "products/shared/products_view", locals:{products: @products} %>
+</div>

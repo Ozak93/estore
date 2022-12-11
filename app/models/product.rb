@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   belongs_to :store
   belongs_to :user, -> { where role: [1, 2] }
   has_many :order_product_records
+  has_many :orders, through: :order_product_records
 
   has_one_attached :image
   has_many_attached :pictures
@@ -41,6 +42,10 @@ class Product < ApplicationRecord
     end
   end
 
+  def filters
+    [:lower, :higher]
+  end
+
   private
 
   def filtration_exceptions(filter_type, opts = {})
@@ -54,4 +59,6 @@ class Product < ApplicationRecord
     else
     end
   end
+
+
 end

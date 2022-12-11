@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
   # Root path
-  root to: "static_pages/home#index"
-
+  root to: "products#index"
   # Resources paths for stores, products, and categories.
   resources :stores do
-    get '/page/:page', as: 'stores', to: 'stores#index', on: :collection
-    get '/:id', as: 'store', to: 'stores#show'
+    get ':id/page/:page', as: 'paged', to: 'stores#show'
   end
   resources :products do
     get '/page/:page', as: 'products', to: 'products#index', on: :collection
     get '/:id', as: 'product', to:  'products#show'
-    # post '/', as: 'new_product', to: 'products#create'
+    get '/new', as: 'create_new_product', to: 'products#create'
+    post '/filtered', as: 'filter', to: "products#filter"
+    post '/', as: 'new_product', to: 'products#create'
+    # get '/filtered/page/:page', as: 'filtered', to: 'products#filtered', on: :collection
   end
   resources :categories do
     get '/page/:page', as: 'categories', to: 'categories#index', on: :collection
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   scope :cart do
-    get '/', as: 'cart', to: 'cart#index'
+    get '/', as: 'cart', to: 'cart#show'
     post '/', as: 'add_to_cart', to: 'cart#update'
   end
 

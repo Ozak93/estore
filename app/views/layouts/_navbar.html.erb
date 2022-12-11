@@ -35,29 +35,41 @@
         <% end %>
 
         <% if admin_signed_in? or owner_signed_in? %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Stores
-            </a>
-            <ul class="dropdown-menu">
-              <% nav_stores.each do |store| %>
-                <li>
-                  <%#= link_to store.name.capitalize, user_store_path(store), class: ' dropdown-item mb-1' %>
-                </li>
-              <% end %>
-              <li>
-                <%#= link_to 'show all stores', user_stores_path, class: ' dropdown-item border-top text-center' %>
-              </li>
-            </ul>
+          <li class="nav-item">
+            <%= link_to 'stores', stores_path, class: 'nav-link text-bg-dark' %>
           </li>
+
+          <!--          <li class="nav-item dropdown">-->
+<!--            <a class="nav-link dropdown-toggle text-bg-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--              Stores-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu">-->
+              <%# nav_stores.each do |store| %>
+<!--                <li>-->
+                  <%#= link_to store.name.capitalize, user_store_path(store), class: ' dropdown-item mb-1' %>
+<!--                </li>-->
+              <%# end %>
+<!--              <li>-->
+                <%#= link_to 'show all stores', user_stores_path, class: ' dropdown-item border-top text-center' %>
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </li>-->
         <% end %>
         <li class="nav-item">
         </li>
       </ul>
     </div>
     <div class="pe-3">
+      <% if customer_signed_in? or !user_signed_in? %>
+        <%= link_to 'Cart', cart_path, class: 'nav-link' %>
+      <% end %>
+    </div>
+    <div class="pe-3">
+
       <% if user_signed_in? %>
         <%= link_to 'Sign out', destroy_user_session_path, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" }, class: 'nav-link' %>
+      <% else %>
+        <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
       <% end %>
     </div>
   </div>

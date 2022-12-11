@@ -1,7 +1,8 @@
 <% if @categories %>
-  <div class="categories">
+  <div class="container-lg text-center text-decoration-none d-flex flex-row justify-content-center gap-4 flex-sm-wrap w-100">
   <% @categories.each do |category| %>
-      <%= link_to category.name, category_path(category), class: 'category' %>
+
+      <%= link_to category.name, category_path(category), class: 'card text-decoration-none bg-dark text-light w-25  d-flex flex-row justify-content-center align-items-center', style:"height:10rem" %>
     <% end %>
   </div>
 <% end %>
