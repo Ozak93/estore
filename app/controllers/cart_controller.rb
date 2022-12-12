@@ -24,7 +24,7 @@ class CartController < ApplicationController
   def edit_quantity
     session[:cart].each { |item| item['amount'] += 1 if item['product'] == params[:id].to_i and item['amount'] < Product.find(item['product'].to_i).stock_quantity } if params[:method] == 'add'
     session[:cart].each { |item| item['amount'] -= 1 if item['product'] == params[:id].to_i and item['amount'] > 1 } if params[:method] == 'sub'
-    # p session[:cart]
+    session[:cart_expire_time] = Time.now.to_i + 86400
     redirect_to cart_path
   end
   def checkout
