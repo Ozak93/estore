@@ -77,7 +77,8 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    Product.delete(@id)
+    Product.delete(params[:product_id].to_i)
+    redirect_to products_path
   end
 
   def destroy_store_products

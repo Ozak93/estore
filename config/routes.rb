@@ -12,14 +12,13 @@ Rails.application.routes.draw do
     get '/new', as: 'create_new_product', to: 'products#create'
     post '/filtered', as: 'filter', to: "products#filter"
     post '/', as: 'new_product', to: 'products#create'
-    get 'page/:page/low_price', as: 'low_price', to: 'products#index_low_price', on: :collection
-    get 'page/:page/medium_price', as: 'medium_price', to: 'products#index_med_price', on: :collection
-    get 'page/:page/high_price', as: 'high_price', to: 'products#index_high_price', on: :collection
     # get '/filtered/page/:page', as: 'filtered', to: 'products#filtered', on: :collection
+    delete '/', as: 'delete', to: 'products#destroy'
   end
   resources :categories do
     get '/page/:page', as: 'categories', to: 'categories#index', on: :collection
     get '/:id', as: 'category', to:  'categories#show'
+    delete '/', as: 'delete', to:  'categories#destroy'
   end
 
   scope :cart do

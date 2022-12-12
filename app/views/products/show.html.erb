@@ -1,4 +1,5 @@
 <% if @product %>
+  <span ><%= link_to 'Delete product', product_delete_path(@product), data:{ "turbo-method": :delete, turbo_confirm: "Are you sure?" }, class: 'btn' %></span>
   <% if @product.image? %>
     <%= link_to image_tag(@product.image_as_thumbnail(400,400)), @product.image %>
     <% end %>

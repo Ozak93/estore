@@ -1,5 +1,6 @@
 <div class="w-100">
-  <h1 class="ms-5">
+    <span style="margin-inline-start: 90%"><%= link_to 'Delete category', category_delete_path(@category), data:{ "turbo-method": :delete, turbo_confirm: "Are you sure?" }, class: 'btn' %></span>
+  <h1 class="ms-5" style="color: black;font-size: 3rem">
     <%= @category.name.to_s.gsub("_", " ").capitalize %> category's products
   </h1>
   <%= render "products/shared/products_view", locals:{products: @products} %>

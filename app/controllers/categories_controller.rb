@@ -25,7 +25,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    Category.delete(@id)
+    Category.delete(params[:category_id].to_i)
+    redirect_to categories_path
   end
 
   private
