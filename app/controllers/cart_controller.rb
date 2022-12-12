@@ -22,7 +22,6 @@ class CartController < ApplicationController
   end
 
   def edit_quantity
-    p '====================================================================', params[:id], params[:method]
     session[:cart].each { |item| item['amount'] += 1 if item['product'] == params[:id].to_i and item['amount'] < Product.find(item['product'].to_i).stock_quantity } if params[:method] == 'add'
     session[:cart].each { |item| item['amount'] -= 1 if item['product'] == params[:id].to_i and item['amount'] > 1 } if params[:method] == 'sub'
     # p session[:cart]
@@ -39,6 +38,7 @@ class CartController < ApplicationController
     ensure_cart_session_exists
     prod = Product.find(@_product['product_id'].to_i)
     amount = @_product['amount'].to_i
+    session[:cart] = [] unless session[:cart]
     if session[:cart].any? { |item| item['product'] == prod.id }
       session[:cart].each { |item| item['amount'] += amount if item['product'] == prod.id }
     else
@@ -50,10 +50,7 @@ class CartController < ApplicationController
   end
 
   def destroy
-    p '*************************************************************************************', '*************************************************************************************'
-    p session[:cart]
     p @product_id
-    p 'delete'
     ensure_cart_session_exists
     prod = Product.find(@product_id)
     session[:cart] = session[:cart].delete_if do |item|
@@ -67,7 +64,6 @@ class CartController < ApplicationController
   end
 
   def destroy_all
-    p 'delete all'
     session[:cart].delete_if do |item|
       undo_item_reserve_transaction(item['product'].to_i, item['amount'])
       true
@@ -76,12 +72,9 @@ class CartController < ApplicationController
   end
 
   def ensure_cart_session_exists
-    session.delete :cart if Time.now.to_i >= session[:cart_expire_time]
     session[:cart] ||= []
     session[:cart_expire_time] ||= Time.now.to_i
-
-    # session[:cart][:items] ||= [] if session[:cart][:items].nil?
-    # session[:cart][:items] = [] if session[:cart][:expire_time].to_i <= Time.now.to_i
+    session.delete :cart if Time.now.to_i >= session[:cart_expire_time]
   end
 
   private
