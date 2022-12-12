@@ -30,15 +30,18 @@ class CartController < ApplicationController
   def checkout
     # quantity = params.require(:quantity).permit(:id)
     redirect_to new_customer_registration_path unless user_signed_in?
+    p '**********************************************************************************************************************'
+    p '**********************************************************************************************************************'
+    p session[:cart]
     order = Order.create!
     total_price = 0
     session[:cart].each do |item|
       product = Product.find(item['product'])
       total_price += (product.price * item['amount'].to_i)
-      product.order_product_records.create!(price: product.price, quantity: item['amount'].to_i, order_id: order.id)
-      order.products << product
+      # product.update!(order_id)
+      OrderProductRecord.create!(price: product.price, quantity: item['amount'].to_i, order_id: order.id, product_id: product.id)
     end
-    order.update!(total_price: total_price, purchase_date:Time.now)
+        order.update!(total_price: total_price, purchase_date:Time.now)
     session[:cart] = []
 
     redirect_to products_path
