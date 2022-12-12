@@ -30,8 +30,18 @@ class CartController < ApplicationController
   def checkout
     # quantity = params.require(:quantity).permit(:id)
     redirect_to new_customer_registration_path unless user_signed_in?
-    session[:cart].each { |item| item['amount'] -= 1 if item['product'] == params[:id].to_i }
-    # redirect_to cart_path
+    order = Order.create!
+    total_price = 0
+    session[:cart].each do |item|
+      product = Product.find(item['product'])
+      total_price += (product.price * item['amount'].to_i)
+      product.order_product_records.create!(price: product.price, quantity: item['amount'].to_i, order_id: order.id)
+      order.products << product
+    end
+    order.update!(total_price: total_price, purchase_date:Time.now)
+    session[:cart] = []
+
+    redirect_to products_path
   end
 
   def update
