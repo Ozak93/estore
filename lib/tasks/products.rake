@@ -1,6 +1,24 @@
 namespace :products do
   desc "TODO"
   task seed_products: :environment do
+    #[low_price high_price medium_price category all_products]
+    Filter.create!([
+                     {
+                       name: 'low_price'
+                     },
+                     {
+                       name: 'high_price'
+                     },
+                     {
+                       name: 'medium_price'
+                     },
+                     {
+                       name: 'category'
+                     },
+                     {
+                       name: 'all_products'
+                     },
+                   ])
     Store.all.each do |store|
       store.products.create!([
                                {

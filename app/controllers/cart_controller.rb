@@ -5,7 +5,7 @@ class CartController < ApplicationController
   before_action :cart_product, only: [:destroy, :update_quantity]
 
   def show
-    ensure_cart_session_exists
+    session[:cart] ||= []
     @order = Order.new
     @cart = []
     @total_price = 0

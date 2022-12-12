@@ -1,6 +1,7 @@
 <div class="w-100">
   <h1 class="ms-5">
     <%= @store.name %>
+    <%= link_to 'Delete store', store_delete_path(@store), data:{ "turbo-method": :delete, turbo_confirm: "Are you sure?" }, class: 'delete btn btn-danger' %>
   </h1>
   <%= render "products/shared/products_view", locals:{products: @products} %>
 </div>

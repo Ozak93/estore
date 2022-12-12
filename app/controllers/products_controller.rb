@@ -80,6 +80,11 @@ class ProductsController < ApplicationController
     Product.delete(@id)
   end
 
+  def destroy_store_products
+    store_id = params[:store_id]
+    Store.find(store_id).products.each { |product| product.delete }
+  end
+
   private
 
   def product_id

@@ -19,7 +19,7 @@ namespace :stores do
                             {
                               name: "#{user.name} #{user.id}'s Last store"
                             },
-                          ])
+                          ]) unless user.customer?
     end
     p "Created #{Store.count} #{'store'.pluralize(Store.count)}"
   end

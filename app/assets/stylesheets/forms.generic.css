@@ -1,5 +1,5 @@
 body{
-    background: #ecdd4f !important;
+    /*background: #ecdd4f !important;*/
     font-family: 'Muli', sans-serif;
 
 }
@@ -26,10 +26,15 @@ a:hover{
 }
 
 .btn{
-    background: #E8D426;
+    /*background: #E8D426;*/
     border: #E8D426;
+    color: white !important;
 }
 .btn:hover {
-    background: #E8D426;
+    /*background: #E8D426;*/
     border: #E8D426;
+}
+
+.delete .btn:hover{
+    color: red;
 }

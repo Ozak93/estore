@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Resources paths for stores, products, and categories.
   resources :stores do
     get ':id/page/:page', as: 'paged', to: 'stores#show'
+    delete '/', as: 'delete', to: 'stores#destroy'
   end
   resources :products do
     get '/page/:page', as: 'products', to: 'products#index', on: :collection

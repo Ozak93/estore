@@ -99,6 +99,7 @@ img {
     border-bottom: 1px solid #dadada;
     letter-spacing: 3px;
     text-transform: uppercase;
+    color: black;
 }
 .projTitle span {
     font-family: "Droid Serif", serif;
@@ -124,7 +125,7 @@ img {
     font-size: .75em;
     padding: 1em;
     color: #fff;
-    background: #82ca9c;
+    background: darkgray;
     font-weight: bold;
     border-radius: 50px;
     float: right;
@@ -327,7 +328,7 @@ a.remove:hover {
     font-size: 1em;
     padding: 1em 3em;
     color: #fff;
-    background: #82ca9c;
+    background: black;
     font-weight: bold;
     border-radius: 50px;
     float: right;
@@ -398,6 +399,7 @@ a.remove:hover {
     .projTitle {
         font-size: 1.5em;
         padding: 10% 5%;
+        color: black !important;
     }
 
     .heading {
@@ -437,6 +439,7 @@ a.remove:hover {
     a.btn.continue {
         width: 100%;
         text-align: center;
+        background-color: darkgray !important;
     }
 }
 .plus {

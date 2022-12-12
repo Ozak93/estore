@@ -40,8 +40,10 @@ class StoresController < ApplicationController
   end
 
   def destroy
-    current_user.store(@id).delete if owner_signed_in?
-    Store.delete(@id)
+    p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', @id, params[:store_id].to_i
+    current_user.store(params[:store_id].to_i).delete if owner_signed_in?
+    Store.find(params[:store_id].to_i).delete if admin_signed_in?
+    redirect_to stores_path
   end
 
   private
