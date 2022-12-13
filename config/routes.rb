@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   resources :products do
     get '/page/:page', as: 'products', to: 'products#index', on: :collection
-    get '/:id', as: 'product', to:  'products#show'
+    get '/:id', as: 'product', to: 'products#show'
     get '/new', as: 'create_new_product', to: 'products#create'
     post '/filtered', as: 'filter', to: "products#filter"
     post '/', as: 'new_product', to: 'products#create'
@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   end
   resources :categories do
     get '/page/:page', as: 'categories', to: 'categories#index', on: :collection
-    get '/:id', as: 'category', to:  'categories#show'
-    delete '/', as: 'delete', to:  'categories#destroy'
+    get '/:id', as: 'category', to: 'categories#show'
+    delete '/', as: 'delete', to: 'categories#destroy'
   end
 
   scope :cart do
@@ -43,22 +43,20 @@ Rails.application.routes.draw do
     get 'dashboard', as: 'dashboard', to: 'dashboard#index'
   end
 
-
   resources :users do
     get 'store_owners/page/:page', as: 'store_owners', to: 'users/users#index', on: :collection
     get 'customers/page/:page', as: 'customers', to: "customers/customers#index", on: :collection
-    get '/page/:page', as:'users', to: 'users/users#index', on: :collection
+    get '/page/:page', as: 'users', to: 'users/users#index', on: :collection
     # get '/create', as: 'new' ,to: 'users/users#new'
   end
 
   resources :admins do
     get 'dashboard', as: 'dashboard', to: "admins/dashboard#index"
-
-      get '/users', to: 'admins/userss#index'
-      get '/users/new', to: "admins/userss#new"
-    post '/users', as: 'create_user' ,to: 'admins/userss#create'
-    get '/users/:id', as: 'user_edit', to:'admins/userss#edit'
-    patch '/users/:id', as: 'edit_user' ,to: 'admins/userss#update'
-
+    get '/users', to: 'admins/userss#index'
+    get '/users/new', to: "admins/userss#new"
+    post '/users', as: 'create_user', to: 'admins/userss#create'
+    get '/users/:id', as: 'user_edit', to: 'admins/userss#edit'
+    patch '/users/:id', as: 'edit_user', to: 'admins/userss#update'
+    delete '/:id', as: 'delete_user', to: 'admins/userss#destroy'
   end
 end

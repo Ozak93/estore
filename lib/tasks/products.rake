@@ -43,7 +43,7 @@ namespace :products do
                                  user_id: 1
                                }
                              ]).each_with_index do |prod, index|
-        prod.categories << (Category.clothes + Category.hand_made)
+        prod.categories << (Category.where(name: 'clothes') + Category.where(name: 'hand made'))
         images = Array.new
         (0..3).each { |number| images.push(File.open("public/images/handmade_#{number}.jpg", 'rb')) }
         prod.image.attach(io: images[index], filename: prod.to_s + '_' + index.to_s)
@@ -73,7 +73,7 @@ namespace :products do
                                  user_id: 1
                                }
                              ]).each_with_index do |prod, index|
-        prod.categories << (Category.bags + Category.hand_made)
+        prod.categories << (Category.where(name: 'bags') + Category.where(name: 'hand made'))
         images = Array.new
         (0..3).each { |number| images.push(File.open("public/images/handmade_bags_#{number}.jpg", 'rb')) }
         prod.image.attach(io: images[index], filename: prod.to_s + '_' + index.to_s)
@@ -104,7 +104,7 @@ namespace :products do
                                  user_id: 1
                                }
                              ]).each_with_index do |prod, index|
-        prod.categories << (Category.clothes + Category.shoes)
+        prod.categories << (Category.where(name: 'clothes') + Category.where(name: 'shoes'))
         images = Array.new
         (0..3).each { |number| images.push(File.open("public/images/shoes_#{number}.jpg", 'rb')) }
         prod.image.attach(io: images[index], filename: prod.to_s + '_' + index.to_s)
@@ -124,7 +124,7 @@ namespace :products do
                                  user_id: 1
                                }
                              ]).each_with_index do |prod, index|
-        prod.categories << (Category.clothes + Category.hand_made + Category.shoes)
+        prod.categories << (Category.where(name: 'clothes') + Category.where(name: 'hand made') + Category.where(name: 'shoes'))
         images = Array.new
         (0..1).each { |number| images.push(File.open("public/images/hand_shoes_#{number}.jpg", 'rb')) }
         prod.image.attach(io: images[index], filename: prod.to_s + '_' + index.to_s)
@@ -154,7 +154,7 @@ namespace :products do
                                  user_id: 1
                                },
                              ]).each_with_index do |prod, index|
-        prod.categories << Category.pc_parts
+        prod.categories << Category.where(name: 'pc parts')
         images = Array.new
         (0..3).each { |number| images.push(File.open("public/images/pc_#{number}.jpg", 'rb')) }
         prod.image.attach(io: images[index], filename: prod.to_s + '_' + index.to_s)
@@ -184,7 +184,7 @@ namespace :products do
                                  user_id: 1
                                },
                              ]).each_with_index do |prod, index|
-        prod.categories << Category.books
+        prod.categories << Category.where(name: 'books')
         images = Array.new
         (0..3).each { |number| images.push(File.open("public/images/book_#{number}.jpg", 'rb')) }
         prod.image.attach(io: images[index], filename: prod.to_s + '_' + index.to_s)

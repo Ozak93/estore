@@ -4,12 +4,11 @@ class StoresController < ApplicationController
   before_action :store_id, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stores = case current_user.role
-                when 'owner'
-                  current_user.stores.page params[:page]
-                else
-                  Store.latest.page params[:page]
-                end
+    @stores = if user_signed_in? and owner_signed_in?
+      current_user.stores.page params[:page]
+    else
+      Store.latest.page params[:page]
+    end
   end
 
   def new
@@ -17,7 +16,11 @@ class StoresController < ApplicationController
   end
 
   def create
-    current_user.stores.create!(@_params)
+    store = current_user.stores.new(@_params)
+    if store.valid?
+      store.save!
+      redirect_to root_path
+    end
   end
 
   def show

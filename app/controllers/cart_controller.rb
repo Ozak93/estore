@@ -29,7 +29,7 @@ class CartController < ApplicationController
   end
   def checkout
     # quantity = params.require(:quantity).permit(:id)
-    redirect_to new_customer_registration_path unless user_signed_in?
+    redirect_to new_customer_registration_path and return unless user_signed_in?
     order = Order.create!
     total_price = 0
     session[:cart].each do |item|
@@ -41,7 +41,7 @@ class CartController < ApplicationController
         order.update!(total_price: total_price, purchase_date:Time.now)
     session[:cart] = []
 
-    redirect_to products_path
+    redirect_to products_products_path(page: 1)
   end
 
   def update

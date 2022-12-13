@@ -33,19 +33,6 @@
       <%= form.number_field :stock_quantity, class: 'form-control' %>
     </div>
 
-    <!--    <div class="mb-3">-->
-    <%# if @categories %>
-    <%# @categories.each do |category| %>
-    <!--          <div class="d-inline me-2">-->
-    <%#= form.label category.name.to_sym %>
-    <%#= form.check_box category.name.to_sym %>
-    <!--          </div>-->
-    <%# end %>
-    <%# end %>
-    <!--    </div>-->
-    <!--    <div class="mb-3">-->
-    <%#= form.collection_radio_buttons :categories, Category.order(:name), :id, :name, multiple: true %>
-    <!--    </div>-->
     <div class="mb-3 cats-check-boxes">
       <%= form.collection_check_boxes :categories, @categories, :id, :name %>
     </div>
@@ -53,7 +40,7 @@
 
     <div class="mt-4">
       <%= form.label :store_id, 'Viewing store', style: 'display: block' %>
-      <%= form.collection_select :store_id, Store.order(created_at: :desc), :id, :name %>
+      <%= form.collection_select :store_id, @stores, :id, :name %>
     </div>
 
 

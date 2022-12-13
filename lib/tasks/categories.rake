@@ -4,22 +4,22 @@ namespace :categories do
     %w[clothes shoes bags pc_parts books hand_made].each { |name| CategoryName.create!(name: name) }
     User.admin.first.categories.create!([
                        {
-                         name: 0
+                         name: 'clothes'
                        },
                        {
-                         name: 1
+                         name: 'shoes'
                        },
                        {
-                         name: 2
+                         name: 'bags'
                        },
                        {
-                         name: 3
+                         name: 'pc parts'
                        },
                        {
-                         name: 4
+                         name: 'books'
                        },
                        {
-                         name: 5
+                         name: 'hand made'
                        }
                      ])
     p "Created #{Category.count} #{'category'.pluralize(Category.count)}"

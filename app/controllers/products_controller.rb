@@ -56,6 +56,11 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @stores = if admin_signed_in?
+                Store.order(created_at: :desc)
+              else
+                current_user.stores
+              end
   end
 
   def create

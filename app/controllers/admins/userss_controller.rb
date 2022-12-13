@@ -30,6 +30,11 @@ class Admins::UserssController < ApplicationController
     redirect_to admin_users_path
   end
 
+  def destroy
+    User.find(params[:id]).delete
+    redirect_to admin_users_path(current_user.id)
+  end
+
   private
 
   def user_params

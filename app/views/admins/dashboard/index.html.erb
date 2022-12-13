@@ -1,6 +1,8 @@
-<h1>Admins Dashboard</h1>
-<% if @stores %>
-  <% @stores.each do |store| %>
-    <h1><%= store.name %></h1>
-    <% end %>
-<% end %>
+<div class="container-sm">
+  <div class="d-flex flex-column justify-content-center align-items-center gap-5">
+    <%= link_to 'Stores', stores_path, class: "btn btn-link btn-block" %>
+    <%= link_to 'Products', products_path, class: "btn btn-link btn-block" %>
+    <%= link_to 'users', admin_users_path(admin_id: current_user.id), class: "btn btn-link btn-block" %>
+
+  </div>
+</div>

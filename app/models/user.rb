@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :categories
   has_many :products, dependent: :destroy
   has_one_attached :image
+  has_many :orders, through: :products
+  has_many :order_product_records, through: :products
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   enum role: [:customer, :owner, :admin]

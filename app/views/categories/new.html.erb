@@ -1,2 +1,30 @@
-<h1>Categories#new</h1>
-<p>Find me in app/views/categories/new.html.erb</p>
+<% stylesheet_link_tag 'product.generic' %>
+<div class="container-lg d-flex flex-row justify-content-center">
+
+  <%= form_with(model: @category) do |form| %>
+    <h1 class="mb-4">Category creation</h1>
+    <% if @category.errors.any? %>
+      <div style="color: red">
+        <h2>
+          <%= pluralize(@category.errors.count, 'error') %> prohibited this product from being saved:
+        </h2>
+        <ul>
+          <% @category.errors.each do |error| %>
+            <li>
+              <%= error.full_message %>
+            </li>
+            </ul>
+            </div>
+          <% end %>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :name, 'Category name',  style: 'display: block' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div>
+      <%= form.submit class: 'btn btn-primary mt-5 w-50 position-relative top-100 start-50 translate-middle' %>
+    </div>
+  <% end %>
+</div>

@@ -26,9 +26,14 @@
                         Role: <%= user.role %>
                       </p>
                       <!--                      </div>-->
+                        <% if !user.admin? %>
                       <div class="card-read-more">
-                        <%= link_to 'edit', admin_user_edit_path(admin_id: 1, id: user.id), class: "btn btn-link btn-block" %>
+                        <%= link_to 'edit', admin_user_edit_path(admin_id: current_user.id, id: user.id), class: "btn btn-link btn-block" %>
                       </div>
+                      <div class="card-read-more">
+                        <%= link_to 'Delete', admin_delete_user_path(admin_id: current_user.id, id: user.id), data: { "turbo-method": :delete, "turbo-message": 'Are you sure?' }, class: "btn btn-link btn-block" %>
+                      </div>
+                          <% end %>
                     </div>
                   </div>
                 </div>

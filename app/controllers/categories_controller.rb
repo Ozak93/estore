@@ -1,10 +1,10 @@
 class CategoriesController < ApplicationController
-  #before_action :authenticate_admin!, only: [:new, :edit, :create, :destroy]
-  before_action :category_params, only:[:create, :edit]
+  before_action :authenticate_admin!, only: [:new, :edit, :create, :destroy]
+  before_action :category_params, only: [:create, :edit]
   before_action :category_id, only: [:edit, :show, :destroy]
 
   def index
-    @categories = Category.latest.page params[:page]
+    @categories = Category.all.page params[:page]
   end
 
   def new
@@ -12,7 +12,12 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    Category.create!(category_params(:name))
+    category = current_user.categories.new(category_params)
+
+    if category.valid?
+      category.save!
+      redirect_to root_path
+    end
   end
 
   def show
@@ -35,7 +40,11 @@ class CategoriesController < ApplicationController
     @id = params[:id]
   end
 
-  def category_params(field)
-    params.require(:category).permit(field)
+  def category_params
+    params.require(:category).permit(:name)
+  end
+
+  def authenticate_admin!
+    redirect_to categories_path, data: { 'turbo-message': 'Unauthorized' } unless admin_signed_in?
   end
 end
