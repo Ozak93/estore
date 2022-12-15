@@ -27,6 +27,11 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem "kaminari", "~> 1.2"
+
+gem "ajax-datatables-rails", "~> 1.3"
+
+gem "jquery-datatables", "~> 1.10"
 # Devise gem for authentication [https://github.com/heartcombo/devise]
 gem "devise", "~> 4.8"
 
@@ -75,4 +80,9 @@ group :test do
 end
 
 
-gem "kaminari", "~> 1.2"
+
+gem "turbolinks", "~> 5.2"
+
+gem "rails-ujs", "~> 0.1.0"
+
+gem "jquery-rails", "~> 4.5"

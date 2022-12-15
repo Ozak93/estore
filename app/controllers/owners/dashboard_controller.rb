@@ -1,11 +1,14 @@
 class Owners::DashboardController < ApplicationController
   before_action :authenticate_owner
   def index
-    @orders = []
-    products_orders = []
-    current_user.products.each { |product| products_orders += product.order_product_records}
-    @orders << products_orders.join('orders')
-
+    # @orders = []
+    # products_orders = []
+    # current_user.products.each { |product| products_orders += product.order_product_records}
+    # @orders << products_orders.join('orders')
+    respond_to do |format|
+      format.html
+      format.json {render json: OrderDatatable.new(params)}
+    end
   end
 
   private
