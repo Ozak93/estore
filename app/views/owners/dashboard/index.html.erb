@@ -4,33 +4,34 @@
   <% end %>
 <% end %>
 
-<table id="order-product-records-datatable" data-source="<%= owners_dashboard_path(format: :json)%>">
-<thead>
-<th>id</th>
-<th>total price</th>
-<!--<th>id</th>-->
-<!--<th>id</th>-->
-<!--<th>id</th>-->
-</thead>
+<table id="records-datatable" data-source="<%= owners_dashboard_path(format: :json) %>">
+  <thead>
+  <th>id</th>
+  <th>order id</th>
+  <th>user email</th>
+  <th>product</th>
+  <th>price</th>
+  <th>quantity</th>
+  </thead>
 </table>
 
 
 <script type="text/javascript">
     // console.log(jQuery('#orders-datatable'))
-    jQuery('#order-product-records-datatable').dataTable({
+    jQuery('#records-datatable').dataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": $('#order-product-records-datatable').data('source')
+            "url": $('#records-datatable').data('source')
         },
         "pagingType": "full_numbers",
         "columns": [
             {"data": "id"},
             {"data": "order_id"},
             {"data": "user_email"},
-            // {"data": "product_name"},
-            // {"data": "product_price"},
-            // {"data": "amount"},
+            {"data": "product"},
+            {"data": "price"},
+            {"data": "quantity"},
             // {"data": "total_price"},
         ]
     })

@@ -6,6 +6,7 @@ class OrderProductRecordDatatable < AjaxDatatablesRails::ActiveRecord
     @view_columns ||= {
       id: { source: "OrderProductRecord.id", cond: :eq },
       order_id: { source: "OrderProductRecord.order_id", cond: :like },
+      user_email: { source: "OrderProductRecord.user_email", cond: :like },
       product: { source: "OrderProductRecord.product", cond: :like },
       price: { source: "OrderProductRecord.price", cond: :like },
       quantity: { source: "OrderProductRecord.quantity", cond: :like },
@@ -17,9 +18,9 @@ class OrderProductRecordDatatable < AjaxDatatablesRails::ActiveRecord
       {
         # example:
         id: record.id,
-        user_email: record.id,
         order_id: record.order_id,
-        product: Product.find(record.product_id),
+        user_email: User.joins(orders: [:order_product_records]).where("order_product_records.id = #{record.id}").first.email,
+        product: Product.joins(:order_product_records).where(id: record.product_id).first.name,
         price: record.price,
         quantity: record.quantity,
       }
@@ -28,8 +29,10 @@ class OrderProductRecordDatatable < AjaxDatatablesRails::ActiveRecord
 
   def get_raw_records
     # insert query here
-    # User.all
-    OrderProductRecord.all
+    products_ids = []
+    options[:current_user].products.each { |product| products_ids.push product.id }
+    p ' 1231231231233333333333333333333333333', products_ids
+    OrderProductRecord.where(product_id: products_ids)
   end
 
 end

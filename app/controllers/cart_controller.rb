@@ -30,7 +30,7 @@ class CartController < ApplicationController
   def checkout
     # quantity = params.require(:quantity).permit(:id)
     redirect_to new_customer_registration_path and return unless user_signed_in?
-    order = Order.create!
+    order = current_user.orders.create!
     total_price = 0
     session[:cart].each do |item|
       product = Product.find(item['product'])

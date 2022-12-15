@@ -7,7 +7,7 @@ class Owners::DashboardController < ApplicationController
     # @orders << products_orders.join('orders')
     respond_to do |format|
       format.html
-      format.json {render json: OrderDatatable.new(params)}
+      format.json {render json: OrderProductRecordDatatable.new(params, {current_user: current_user})}
     end
   end
 
