@@ -14,8 +14,8 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: admin
-  host: localhost
+  password: IO7CfBDRkZF5NHmL
+  host: srv-captain--gruwlxyfvb-mysql-80x
 
 development:
   <<: *default
