@@ -1,39 +1,38 @@
 <% if @orders %>
   <% @orders.each do |order| %>
-     <div style="background-color: black; color: red;"> <%= order %></div>
-    <% end %>
+    <div style="background-color: black; color: red;"> <%= order %></div>
+  <% end %>
 <% end %>
 
-<table class="table">
-  <thead class="thead-dark">
-  <tr>
-    <th scope="col">order id</th>
-    <th scope="col">user email</th>
-    <th scope="col">user name</th>
-    <th scope="col">number of items</th>
-    <th scope="col">total quantity</th>
-    <th scope="col">total price</th>
-  </tr>
+<table id="records-datatable" data-source="<%= owners_dashboard_path(format: :json) %>">
+  <thead>
+  <th>id</th>
+  <th>order id</th>
+  <th>user email</th>
+  <th>product</th>
+  <th>price</th>
+  <th>quantity</th>
   </thead>
-  <tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Otto</td>
-    <td>@mdo</td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Jacob</td>
-    <td>Thornton</td>
-    <td>@fat</td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td>Larry</td>
-    <td>the Bird</td>
-    <td>@twitter</td>
-  </tr>
-  </tbody>
 </table>
 
+
+<script type="text/javascript">
+    // console.log(jQuery('#orders-datatable'))
+    jQuery('#records-datatable').dataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": $('#records-datatable').data('source')
+        },
+        "pagingType": "full_numbers",
+        "columns": [
+            {"data": "id"},
+            {"data": "order_id"},
+            {"data": "user_email"},
+            {"data": "product"},
+            {"data": "price"},
+            {"data": "quantity"},
+            // {"data": "total_price"},
+        ]
+    })
+</script>
